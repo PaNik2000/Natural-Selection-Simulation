@@ -24,8 +24,6 @@ public:
 
 	virtual void Tick(float DeltaSeconds) override;
 
-	virtual FRotator GetControlRotation() const override;
-
 	UFUNCTION()
 	void OnPawnDetected(const TArray<AActor*>& DetectedPawns);
 
