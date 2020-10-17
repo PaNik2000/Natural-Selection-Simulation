@@ -13,22 +13,6 @@ AAIPopController::AAIPopController() {
 	AISightAge = 5.f;
 	AILoseSightRadius = AISightRadius + 50.f;
 	AIFieldOfView = 90.f;
-
-	// UAISenseConfig_Sight* SightConfig = CreateOptionalDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
-	// SetPerceptionComponent(*CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception Component")));
-
-	// SightConfig->SightRadius = AISightRadius;
-	// SightConfig->LoseSightRadius = AILoseSightRadius;
-	// SightConfig->PeripheralVisionAngleDegrees = AIFieldOfView;
-	// SightConfig->SetMaxAge(AISightAge);
-
-	// SightConfig->DetectionByAffiliation.bDetectEnemies = true;
-	// SightConfig->DetectionByAffiliation.bDetectFriendlies = true;
-	// SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
-
-	// GetPerceptionComponent()->SetDominantSense(*SightConfig->GetSenseImplementation());
-	// GetPerceptionComponent()->OnPerceptionUpdated.AddDynamic(this, &AAIPopController::OnPawnDetected);
-	// GetPerceptionComponent()->ConfigureSense(*SightConfig);
 }
 
 void AAIPopController::BeginPlay()
@@ -51,7 +35,15 @@ void AAIPopController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	
-	// APop* pop = Cast<APop>(GetPawn());
+	APop* pop = Cast<APop>(GetPawn());
+	if(pop->energy > 0.f)
+	{
+		pop->energy -= DeltaSeconds * (FMath::Pow(pop->size, 3) * FMath::Pow(pop->speed, 2) + pop->sence);
+	}else
+	{
+		pop->Destroy();
+	}
+	
 	// if (pop->capturedFood && !pop->capturedFood->IsPendingKill()) {
 	// 	UE_LOG(LogTemp, Warning, TEXT("Trying to move to food!"));
 	// 	MoveToActor(pop->capturedFood, 0.f);

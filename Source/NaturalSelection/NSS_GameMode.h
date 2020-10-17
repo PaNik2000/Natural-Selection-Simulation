@@ -20,21 +20,36 @@ class NATURALSELECTION_API ANSS_GameMode : public AGameMode
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<AActor> actorToSpawn;
+	TSubclassOf<AActor> foodToSpawn;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> popToSpawn;
 
 	UPROPERTY(EditAnywhere)
 	int foodAmount;
+	UPROPERTY(EditAnywhere)
+	int popAmount;
 
 	float spawnZ;
 
 	UPROPERTY(EditAnywhere)
-		float spawnMaxX;
+	float foodSpawnMaxX; 
 	UPROPERTY(EditAnywhere)
-		float spawnMinX;
+	float foodSpawnMinX;
 	UPROPERTY(EditAnywhere)
-		float spawnMaxY;
+	float foodSpawnMaxY;
 	UPROPERTY(EditAnywhere)
-		float spawnMinY;
+	float foodSpawnMinY;
+
+	UPROPERTY(EditAnywhere)
+	float popSpawnMaxX; 
+	UPROPERTY(EditAnywhere)
+	float popSpawnMinX;
+	UPROPERTY(EditAnywhere)
+	float popSpawnMaxY;
+	UPROPERTY(EditAnywhere)
+	float popSpawnMinY;
+
 
 	void SpawnFood();
+	void SpawnPop();
 };

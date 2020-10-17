@@ -16,10 +16,17 @@ public:
 	APop();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class AFood* capturedFood;
+	int eatenFood;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int eatenFood;
+	float speed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float size;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float sence;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float energy;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -32,7 +39,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void CaptureFood();
-
 	inline void Eat() { eatenFood++; };
+
+	
 };

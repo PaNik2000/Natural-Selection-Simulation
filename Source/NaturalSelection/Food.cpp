@@ -49,7 +49,6 @@ void AFood::OnPlayerEnter(UPrimitiveComponent* OverlapComponent,
 		if (Pop) {
 			Destroy();
 			Pop->Eat();
-			Pop->CaptureFood();
 		}
 	}
 }
