@@ -17,6 +17,17 @@ APop::APop()
 	size = 1.f;
 	sence = 1.f;
 	energy = 100.f;
+
+	//Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
+	//SetRootComponent(Root);
+
+	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this, &APop::OnPlayerEnter);
+
+	//SphereComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Trigger Sphere"));
+	//SphereComponent->SetupAttachment(GetRootComponent());
+	//SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &APop::OnPlayerEnter);
+	//SphereComponent->InitCapsuleSize(50 * size, 150 * size);
+	
 }
 
 // Called when the game starts or when spawned
@@ -40,3 +51,19 @@ void APop::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void APop::OnPlayerEnter(UPrimitiveComponent* OverlapComponent,
+							AActor* OtherActor,
+							UPrimitiveComponent* OtherComponent,
+							int32 OtherBodyIndex,
+							bool bFromSweep,
+							const FHitResult& SweepResult) {
+		UE_LOG(LogTemp, Warning, TEXT("Collision hahhah!"));
+		APop* Pop = nullptr;
+		if (OtherActor) {
+			Pop = Cast<APop>(OtherActor);
+			if (Pop && (Pop->size / this->size >= 1.0f/0.7f)) {
+				Destroy();
+				Pop->Eat();
+			}
+		}
+}

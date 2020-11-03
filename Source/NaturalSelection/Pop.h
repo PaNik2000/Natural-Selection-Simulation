@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/CapsuleComponent.h"
 #include "Pop.generated.h"
 
 UCLASS()
@@ -27,6 +28,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float energy;
 
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	USceneComponent* Root;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UCapsuleComponent* SphereComponent;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -41,5 +49,11 @@ public:
 
 	inline void Eat() { eatenFood++; };
 
-	
+	UFUNCTION()
+	void OnPlayerEnter(UPrimitiveComponent* OverlapComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComponent,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult);
 };
