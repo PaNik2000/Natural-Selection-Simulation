@@ -57,11 +57,12 @@ void APop::OnPlayerEnter(UPrimitiveComponent* OverlapComponent,
 							int32 OtherBodyIndex,
 							bool bFromSweep,
 							const FHitResult& SweepResult) {
-		UE_LOG(LogTemp, Warning, TEXT("Collision hahhah!"));
+		
 		APop* Pop = nullptr;
 		if (OtherActor) {
 			Pop = Cast<APop>(OtherActor);
-			if (Pop && (Pop->size / this->size >= 1.0f/0.7f)) {
+			if (Pop && (Pop->size / this->size >= 1.0f/0.7f) && Pop->eatenFood < 2) {
+				UE_LOG(LogTemp, Warning, TEXT("Collision hahhah!"));
 				Destroy();
 				Pop->Eat();
 			}
