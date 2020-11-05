@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameMode.h"
+#include "Engine/World.h"
+#include "Engine/EngineTypes.h"
 #include "NSS_GameMode.generated.h"
 
 /**

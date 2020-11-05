@@ -8,16 +8,16 @@ ANSS_GameMode::ANSS_GameMode() {
 	PrimaryActorTick.bCanEverTick = true;
 	spawnZ = 25.f;
 	// FOOD
-	foodSpawnMaxX = 2560.f;
-	foodSpawnMaxY = 2560.f;
-	foodSpawnMinX = -2560.f;
-	foodSpawnMinY = -2560.f;
+	foodSpawnMaxX = 2000.f;
+	foodSpawnMaxY = 2000.f;
+	foodSpawnMinX = -2000.f;
+	foodSpawnMinY = -2000.f;
 
 	// POP
-	popSpawnMaxX = -2560.f;
-	popSpawnMaxY = 2760.f;
-	popSpawnMinX = -2760.f;
-	popSpawnMinY = -2760.f;
+	popSpawnMaxX = -2070.f;
+	popSpawnMaxY = -1900.f;
+	popSpawnMinX = -2070.f;
+	popSpawnMinY = -2080.f;
 }
 
 void ANSS_GameMode::BeginPlay()
@@ -54,8 +54,16 @@ void ANSS_GameMode::SpawnPop()
 	float RandY = FMath::RandRange(popSpawnMinY, popSpawnMaxY);
 
 	FVector SpawnPos = FVector(RandX, RandY, spawnZ);
+	//UE_LOG(LogTemp, Warning, TEXT("%s"), *SpawnPos.ToString());
 	FRotator SpawnRot = FRotator(0.f, 0.f, 0.f);
 
-	GetWorld()->SpawnActor(popToSpawn, &SpawnPos, &SpawnRot);
+	//FActorSpawnParameters SpawnParams;
+	//SpawnParams.bNoFail = true;
+
+	bool bNoCollisionFail = true;
+	FActorSpawnParameters ActorSpawnParams;
+	ActorSpawnParams.SpawnCollisionHandlingOverride = bNoCollisionFail ? ESpawnActorCollisionHandlingMethod::AlwaysSpawn : ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+
+	GetWorld()->SpawnActor(popToSpawn, &SpawnPos, &SpawnRot, ActorSpawnParams);
 }
 
